@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class AdminController extends Controller
 {
@@ -11,7 +14,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -27,7 +30,23 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+        'id_admin' => 'required',
+        'nama' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        ]);
+
+        $data = [
+            'id_admin' => $request->id_admin,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        DB::table('admin')->insert($data);
+
+        return redirect()->route('admin.index')->with('success', 'Data admin berhasil disimpan.');
     }
 
     /**
@@ -43,7 +62,8 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('admin')->where('id_admin', $id)->first();
+        return view('admin.edit', compact('data'));
     }
 
     /**
@@ -51,7 +71,22 @@ class AdminController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+        'id_admin' => 'required',
+        'nama' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        ]);
+
+        $data = [
+            'id_admin' => $request->id_admin,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        DB::table('admin')->where('id_admin', $id)->update($data);
+        return redirect()->route('admin.index')->with('success', 'Data admin berhasil diperbarui.');
     }
 
     /**
