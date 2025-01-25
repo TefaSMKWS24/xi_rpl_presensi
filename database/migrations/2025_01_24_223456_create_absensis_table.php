@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string("kehadiran");
             $table->string("keterangan");
             $table->string("waktu_absen");
+            $table->date("tanggal_absen");
             $table->timestamps();
         });
     }

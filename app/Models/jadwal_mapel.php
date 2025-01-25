@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class jadwal_mapel extends Model
 {
     use HasFactory;
+    protected $table = 'jadwal_mapel';
 }

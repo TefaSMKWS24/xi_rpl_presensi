@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class mapel_guru extends Model
 {
     use HasFactory;
+    protected $table = 'mapel_guru';
 }
