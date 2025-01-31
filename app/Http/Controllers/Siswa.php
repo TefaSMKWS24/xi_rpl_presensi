@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class Siswa extends Controller
 {
@@ -11,7 +14,7 @@ class Siswa extends Controller
      */
     public function index()
     {
-        //
+        return view('siswa.index');
     }
 
     /**
@@ -19,7 +22,7 @@ class Siswa extends Controller
      */
     public function create()
     {
-        //
+        return view('siswa.create');
     }
 
     /**
@@ -27,7 +30,36 @@ class Siswa extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'id_siswa' => 'required',
+            'nisn' => 'required',
+            'nama' => 'required',
+            'tahun_masuk' => 'required',
+            'status_masuk' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'tanggal_lahir' => 'required',
+            'tempat_lahir' => 'required',
+            'no_telphone' => 'required',
+            'tahun_keluar' => 'required',
+        ]);
+
+        $data = [
+            'id_siswa' => $request->id_siswa,
+            'nisn' => $request->nisn,
+            'nama' => $request->nama,
+            'tahun_masuk' => $request->tahun_masuk,
+            'status_masuk' => $request->status_masuk,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'tempat_lahir' => $request->tempat_lahir,
+            'no_telphone' => $request->no_telphone,
+            'tahun_keluar' => $request->tahun_keluar,
+        ];
+
+        DB::table('siswa')->insert($data);
+        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil disimpan.');
     }
 
     /**
@@ -51,7 +83,36 @@ class Siswa extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_siswa' => 'required',
+            'nisn' => 'required',
+            'nama' => 'required',
+            'tahun_masuk' => 'required',
+            'status_masuk' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'tanggal_lahir' => 'required',
+            'tempat_lahir' => 'required',
+            'no_telphone' => 'required',
+            'tahun_keluar' => 'required',
+        ]);
+
+        $data = [
+            'id_siswa' => $request->id_siswa,
+            'nisn' => $request->nisn,
+            'nama' => $request->nama,
+            'tahun_masuk' => $request->tahun_masuk,
+            'status_masuk' => $request->status_masuk,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'alamat' => $request->alamat,
+            'tanggal_lahir' => $request->tanggal_lahir,
+            'tempat_lahir' => $request->tempat_lahir,
+            'no_telphone' => $request->no_telphone,
+            'tahun_keluar' => $request->tahun_keluar,
+        ];
+
+        DB::table('siswa')->where('id_siswa', $id)->update($data);
+        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui.');
     }
 
     /**

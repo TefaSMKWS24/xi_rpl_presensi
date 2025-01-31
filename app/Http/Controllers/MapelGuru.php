@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class MapelGuru extends Controller
 {
@@ -11,7 +14,7 @@ class MapelGuru extends Controller
      */
     public function index()
     {
-        //
+        return view('mapel_guru.index');
     }
 
     /**
@@ -19,7 +22,7 @@ class MapelGuru extends Controller
      */
     public function create()
     {
-        //
+        return view('mapel_guru.create');
     }
 
     /**
@@ -27,7 +30,20 @@ class MapelGuru extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'id_mapel_guru' => 'required',
+            'id_mapel' => 'required',
+            'id_guru' => 'required',
+        ]);
+
+        $data = [
+            'id_mapel_guru' => $request->id_mapel_guru,
+            'id_mapel' => $request->id_mapel,
+            'id_guru' => $request->id_guru,
+        ];
+
+        DB::table('mapel_guru')->insert($data);
+        return redirect()->route('mapel_guru.index')->with('success', 'Data mapel guru berhasil disimpan.');
     }
 
     /**
@@ -51,7 +67,20 @@ class MapelGuru extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_mapel_guru' => 'required',
+            'id_mapel' => 'required',
+            'id_guru' => 'required',
+        ]);
+
+        $data = [
+            'id_mapel_guru' => $request->id_mapel_guru,
+            'id_mapel' => $request->id_mapel,
+            'id_guru' => $request->id_guru,
+        ];
+
+        DB::table('mapel_guru')->where('id_mapel_guru', $id)->update($data);
+        return redirect()->route('mapel_guru.index')->with('success', 'Data mapel guru berhasil diperbarui.');
     }
 
     /**

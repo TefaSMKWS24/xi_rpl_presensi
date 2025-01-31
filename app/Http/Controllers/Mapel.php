@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class Mapel extends Controller
 {
@@ -11,7 +14,7 @@ class Mapel extends Controller
      */
     public function index()
     {
-        //
+        return view('mapel.index');
     }
 
     /**
@@ -19,7 +22,7 @@ class Mapel extends Controller
      */
     public function create()
     {
-        //
+        return view('mapel.create');
     }
 
     /**
@@ -27,7 +30,18 @@ class Mapel extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'id_mapel' => 'required',
+            'nama_mapel' => 'required',
+        ]);
+
+        $data = [
+            'id_mapel' => $request->id_mapel,
+            'nama_mapel' => $request->nama_mapel,
+        ];
+
+        DB::table('mapel')->insert($data);
+        return redirect()->route('mapel.index')->with('success', 'Data mapel berhasil disimpan.');
     }
 
     /**
@@ -51,7 +65,18 @@ class Mapel extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_mapel' => 'required',
+            'nama_mapel' => 'required',
+        ]);
+
+        $data = [
+            'id_mapel' => $request->id_mapel,
+            'nama_mapel' => $request->nama_mapel,
+        ];
+
+        DB::table('mapel')->where('id_mapel', $id)->update($data);
+        return redirect()->route('mapel.index')->with('success', 'Data mapel berhasil diperbarui.');
     }
 
     /**

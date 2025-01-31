@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class SiswaKelas extends Controller
 {
@@ -11,7 +14,7 @@ class SiswaKelas extends Controller
      */
     public function index()
     {
-        //
+        return view('siswa_kelas.index');
     }
 
     /**
@@ -19,7 +22,7 @@ class SiswaKelas extends Controller
      */
     public function create()
     {
-        //
+        return view('siswa_kelas.create');
     }
 
     /**
@@ -27,7 +30,23 @@ class SiswaKelas extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'id_siswa_kelas' => 'required',
+            'id_kelas' => 'required',
+            'id_siswa' => 'required',
+            'id_tahun_ajaran' => 'required',
+
+        ]);
+
+        $data = [
+            'id_siswa_kelas' => $request->id_siswa_kelas,
+            'id_kelas' => $request->id_kelas,
+            'id_siswa' => $request->id_siswa,
+            'id_tahun_ajaran' => $request->id_tahun_ajaran,
+        ];
+
+        DB::table('siswa_kelas')->insert($data);
+        return redirect()->route('siswa_kelas.index')->with('success', 'Data siswa kelas berhasil disimpan.');
     }
 
     /**
@@ -51,7 +70,22 @@ class SiswaKelas extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_siswa_kelas' => 'required',
+            'id_kelas' => 'required',
+            'id_siswa' => 'required',
+            'id_tahun_ajaran' => 'required',
+        ]);
+
+        $data = [
+            'id_siswa_kelas' => $request->id_siswa_kelas,
+            'id_kelas' => $request->id_kelas,
+            'id_siswa' => $request->id_siswa,
+            'id_tahun_ajaran' => $request->id_tahun_ajaran,
+        ];
+
+        DB::table('siswa_kelas')->where('id_siswa_kelas', $id)->update($data);
+        return redirect()->route('siswa_kelas.index')->with('success', 'Data siswa kelas berhasil diupdate.');
     }
 
     /**

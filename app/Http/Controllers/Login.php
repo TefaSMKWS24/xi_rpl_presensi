@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\redirect;
+use Illuminate\Support\Facades\validator;
 
 class Login extends Controller
 {
@@ -11,7 +14,7 @@ class Login extends Controller
      */
     public function index()
     {
-        //
+        return view('login.index');
     }
 
     /**
@@ -19,7 +22,7 @@ class Login extends Controller
      */
     public function create()
     {
-        //
+        return view('login.create');
     }
 
     /**
@@ -27,7 +30,28 @@ class Login extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'id_login' => 'required',
+            'aktivitas' => 'required',
+            'type_aktivitas' => 'required',
+            'data' => 'required',
+            'tanggal' => 'required',
+            'id_admin' => 'required',
+            'id_guru' => 'required',
+        ]);
+
+        $data = [
+            'id_login' => $request->id_login,
+            'aktivitas' => $request->aktivitas,
+            'type_aktivitas' => $request->type_aktivitas,
+            'data' => $request->data,
+            'tanggal' => $request->tanggal,
+            'id_admin' => $request->id_admin,
+            'id_guru' => $request->id_guru,
+        ];
+
+        DB::table('login')->insert($data);
+        return redirect()->route('login.index')->with('success', 'Data login berhasil disimpan.');
     }
 
     /**
@@ -51,7 +75,28 @@ class Login extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'id_login' => 'required',
+            'aktivitas' => 'required',
+            'type_aktivitas' => 'required',
+            'data' => 'required',
+            'tanggal' => 'required',
+            'id_admin' => 'required',
+            'id_guru' => 'required',
+        ]);
+
+        $data = [
+            'id_login' => $request->id_login,
+            'aktivitas' => $request->aktivitas,
+            'type_aktivitas' => $request->type_aktivitas,
+            'data' => $request->data,
+            'tanggal' => $request->tanggal,
+            'id_admin' => $request->id_admin,
+            'id_guru' => $request->id_guru,
+        ];
+
+        DB::table('login')->where('id_login', $id)->update($data);
+        return redirect()->route('login.index')->with('success', 'Data login berhasil diperbarui.');
     }
 
     /**
