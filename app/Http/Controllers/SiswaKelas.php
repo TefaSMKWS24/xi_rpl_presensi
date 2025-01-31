@@ -35,7 +35,6 @@ class SiswaKelas extends Controller
             'id_kelas' => 'required',
             'id_siswa' => 'required',
             'id_tahun_ajaran' => 'required',
-            'id_tahun_ajaran1' => 'required',
         ]);
 
         $data = [
