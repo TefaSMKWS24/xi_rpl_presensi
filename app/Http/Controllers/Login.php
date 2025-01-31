@@ -51,7 +51,7 @@ class Login extends Controller
         ];
 
         DB::table('login')->insert($data);
-        return redirect()->route('login.index')->with('success', 'Data login berhasil disimpan.');
+        return redirect()->view(login.index);
     }
 
     /**

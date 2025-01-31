@@ -53,7 +53,7 @@ class WaliSiswa extends Controller
         ];
 
         DB::table('wali_siswa')->insert($data);
-        return redirect()->route('wali_siswa.index')->with('success', 'Data wali siswa berhasil disimpan.');
+        return redirect()->view(wali_siswa.index);
     }
 
     /**

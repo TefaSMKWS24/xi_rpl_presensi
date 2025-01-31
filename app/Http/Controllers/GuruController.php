@@ -52,8 +52,8 @@ class GuruController extends Controller
         ];
 
         DB::table('guru')->insert($data);
+        return redirect()->view(guru.index);
 
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil disimpan.');
     }
 
     /**
@@ -69,7 +69,8 @@ class GuruController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('guru')->where('guru', $id)->firts();
+        return view('guru.edit', compact('data'));
     }
 
     /**
@@ -98,7 +99,7 @@ class GuruController extends Controller
         ];
 
         DB::table('guru')->where('id_guru', $id)->update($data);
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui.');
+        return redirect()->view('guru.index');
     }
 
     /**
@@ -106,6 +107,7 @@ class GuruController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('guru')->where('id_guru', $id)->delete();
+        return redirect()->view('guru.index');
     }
 }

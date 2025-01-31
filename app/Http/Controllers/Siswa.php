@@ -59,7 +59,7 @@ class Siswa extends Controller
         ];
 
         DB::table('siswa')->insert($data);
-        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil disimpan.');
+        return redirect()->view(siswa.index);
     }
 
     /**

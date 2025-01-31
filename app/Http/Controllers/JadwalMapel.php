@@ -52,7 +52,7 @@ class JadwalMapel extends Controller
         ];
 
         DB::table('jadwal_mapel')->insert($data);
-        return redirect()->route('jadwal_mapel.index')->with('success', 'Data jadwal mapel berhasil disimpan.');
+        return redirect()->view('jadwal_mapel.index');
     }
 
     /**

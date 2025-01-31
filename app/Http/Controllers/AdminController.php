@@ -45,8 +45,8 @@ class AdminController extends Controller
         ];
 
         DB::table('admin')->insert($data);
+        return redirect()->view(admin.index);
 
-        return redirect()->route('admin.index')->with('success', 'Data admin berhasil disimpan.');
     }
 
     /**
@@ -86,7 +86,7 @@ class AdminController extends Controller
         ];
 
         DB::table('admin')->where('id_admin', $id)->update($data);
-        return redirect()->route('admin.index')->with('success', 'Data admin berhasil diperbarui.');
+        return redirect()->view('admin.index');
     }
 
     /**
@@ -94,6 +94,7 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('admin')->where('id_absensi', $id)->delete();
+        return redirect()->view('absensi.index');
     }
 }

@@ -43,7 +43,7 @@ class Kelas extends Controller
       ];
 
       DB::table('kelas')->insert($data);
-      return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil disimpan.');
+      return redirect()->view(kelas.index);
     }
 
     /**

@@ -43,7 +43,7 @@ class MapelGuru extends Controller
         ];
 
         DB::table('mapel_guru')->insert($data);
-        return redirect()->route('mapel_guru.index')->with('success', 'Data mapel guru berhasil disimpan.');
+        return redirect()->view(mapel_guru.index);
     }
 
     /**

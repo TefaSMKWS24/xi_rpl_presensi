@@ -51,8 +51,8 @@ class absensiController extends Controller
         ];
 
         DB::table('absensi')->insert($data);
+        return redirect()->view(absensi.index);
 
-        return redirect()->route('absensi.index')->with('success', 'Data absensi berhasil disimpan.');
     }
 
     /**
@@ -98,8 +98,8 @@ class absensiController extends Controller
             'tanggal_absen' => $request->tanggal_absen,
         ];
 
-        DB::table('absensi')->where('id_absensi', $id)->update($data);
-        return redirect()->route('absensi.index')->with('success', 'Data absensi berhasil diperbarui.');
+        DB::table('absensi')->where('absensi', $id)->update($data);
+        return redirect()->view('absensi.index');
     }
 
     /**
@@ -107,6 +107,7 @@ class absensiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('absensi')->where('absensi', $id)->delete();
+        return redirect()->view('absensi.index');
     }
 }

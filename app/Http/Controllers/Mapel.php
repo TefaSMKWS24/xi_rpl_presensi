@@ -41,7 +41,7 @@ class Mapel extends Controller
         ];
 
         DB::table('mapel')->insert($data);
-        return redirect()->route('mapel.index')->with('success', 'Data mapel berhasil disimpan.');
+        return redirect()->view(mapel.index);
     }
 
     /**

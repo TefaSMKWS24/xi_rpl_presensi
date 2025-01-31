@@ -46,7 +46,7 @@ class SiswaKelas extends Controller
         ];
 
         DB::table('siswa_kelas')->insert($data);
-        return redirect()->route('siswa_kelas.index')->with('success', 'Data siswa kelas berhasil disimpan.');
+        return redirect()->view(siswa_kelas.index);
     }
 
     /**
