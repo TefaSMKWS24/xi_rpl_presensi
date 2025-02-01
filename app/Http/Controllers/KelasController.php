@@ -59,7 +59,8 @@ class Kelas extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('kelas')->where('kelas', $id)->first();
+        return view('kelas.edit', compact('data'));
     }
 
     /**
@@ -79,8 +80,8 @@ class Kelas extends Controller
             'id_guru' => $request->id_guru,
         ];
 
-        DB::table('kelas')->where('id_kelas', $id)->update($data);
-        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil diperbarui.');
+        DB::table('kelas')->where('kelas', $id)->update($data);
+        return redirect()->view('kelas.index');
     }
 
     /**
@@ -88,6 +89,7 @@ class Kelas extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('kelas')->where('kelas', $id)->delete($data);
+        return redirect()->view('kelas.index');
     }
 }

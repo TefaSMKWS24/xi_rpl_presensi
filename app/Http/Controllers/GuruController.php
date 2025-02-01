@@ -14,7 +14,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        return view('guru.index');
     }
 
     /**
@@ -22,7 +22,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.create');
     }
 
     /**
@@ -98,7 +98,7 @@ class GuruController extends Controller
             'password' => $request->password,
         ];
 
-        DB::table('guru')->where('id_guru', $id)->update($data);
+        DB::table('guru')->where('guru', $id)->update($data);
         return redirect()->view('guru.index');
     }
 
@@ -107,7 +107,7 @@ class GuruController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('guru')->where('id_guru', $id)->delete();
+        DB::table('guru')->where('guru', $id)->delete();
         return redirect()->view('guru.index');
     }
 }

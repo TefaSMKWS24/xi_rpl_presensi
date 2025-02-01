@@ -68,7 +68,8 @@ class JadwalMapel extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('jadwal_mapel')->where('jadwal_mapel', $id)->first();
+        return view('jadwal_mapel.edit', compact('data'));
     }
 
     /**
@@ -96,8 +97,8 @@ class JadwalMapel extends Controller
             'id_kelas' => $request->id_kelas,
         ];
 
-        DB::table('jadwal_mapel')->where('id_jadwal_mapel', $id)->update($data);
-        return redirect()->route('jadwal_mapel.index')->with('success', 'Data jadwal mapel berhasil diperbarui.');
+        DB::table('jadwal_mapel')->where('jadwal_mapel', $id)->update($data);
+        return redirect()->view('jadwal_mapel.index');
 
     }
 
@@ -106,6 +107,7 @@ class JadwalMapel extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('jadwal_mapel')->where('jadwal_mapel', $id)->delete($data);
+        return redirect()->view('jadwal_mapel.index');
     }
 }

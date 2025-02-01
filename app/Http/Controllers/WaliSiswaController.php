@@ -69,7 +69,8 @@ class WaliSiswa extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('wali_siswa')->where('wali_siswa', $id)->first();
+        return view('wali_siswa.edit', compact('data'));
     }
 
     /**
@@ -99,8 +100,8 @@ class WaliSiswa extends Controller
             'email' => $request->email,
         ];
 
-        DB::table('wali_siswa')->where('id_wali_siswa', $id)->update($data);
-        return redirect()->route('wali_siswa.index')->with('success', 'Data wali siswa berhasil diupdate.');
+        DB::table('wali_siswa')->where('wali_siswa', $id)->update($data);
+        return redirect()->view('wali_siswa.index');
     }
 
     /**
@@ -108,6 +109,7 @@ class WaliSiswa extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('wali_siswa')->where('wali_siswa', $id)->delete();
+        return redirect()->view('wali_siswa.index');
     }
 }

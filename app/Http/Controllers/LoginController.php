@@ -67,7 +67,8 @@ class Login extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('login')->where('login', $id)->first();
+        return view('login.edit', compact('data'));
     }
 
     /**
@@ -95,8 +96,8 @@ class Login extends Controller
             'id_guru' => $request->id_guru,
         ];
 
-        DB::table('login')->where('id_login', $id)->update($data);
-        return redirect()->route('login.index')->with('success', 'Data login berhasil diperbarui.');
+        DB::table('login')->where('login', $id)->update($data);
+        return redirect()->view('login.index');
     }
 
     /**
@@ -104,6 +105,7 @@ class Login extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('login')->where('login', $id)->delete($data);
+        return redirect()->view('login.index');
     }
 }

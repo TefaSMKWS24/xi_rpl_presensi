@@ -85,7 +85,7 @@ class AdminController extends Controller
             'password' => $request->password,
         ];
 
-        DB::table('admin')->where('id_admin', $id)->update($data);
+        DB::table('admin')->where('admin', $id)->update($data);
         return redirect()->view('admin.index');
     }
 
@@ -94,7 +94,7 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        DB::table('admin')->where('id_absensi', $id)->delete();
-        return redirect()->view('absensi.index');
+        DB::table('admin')->where('admin', $id)->delete();
+        return redirect()->view('admin.index');
     }
 }

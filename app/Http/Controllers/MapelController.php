@@ -57,7 +57,8 @@ class Mapel extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('mapel')->where('mapel', $id)->first();
+        return view('mapel.edit', compact('data'));
     }
 
     /**
@@ -75,8 +76,8 @@ class Mapel extends Controller
             'nama_mapel' => $request->nama_mapel,
         ];
 
-        DB::table('mapel')->where('id_mapel', $id)->update($data);
-        return redirect()->route('mapel.index')->with('success', 'Data mapel berhasil diperbarui.');
+        DB::table('mapel')->where('mapel', $id)->update($data);
+        return redirect()->route('mapel.index');
     }
 
     /**
@@ -84,6 +85,7 @@ class Mapel extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('mapel')->where('mapel', $id)->delete();
+        return redirect()->route('mapel.index');
     }
 }

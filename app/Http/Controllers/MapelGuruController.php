@@ -59,7 +59,8 @@ class MapelGuru extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('mapel_guru')->where('mapel_guru', $id)->first();
+        return view('mapel_guru.edit', compact('data'));
     }
 
     /**
@@ -79,8 +80,8 @@ class MapelGuru extends Controller
             'id_guru' => $request->id_guru,
         ];
 
-        DB::table('mapel_guru')->where('id_mapel_guru', $id)->update($data);
-        return redirect()->route('mapel_guru.index')->with('success', 'Data mapel guru berhasil diperbarui.');
+        DB::table('mapel_guru')->where('mapel_guru', $id)->update($data);
+        return redirect()->view('mapel_guru.index');
     }
 
     /**
@@ -88,6 +89,7 @@ class MapelGuru extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('mapel_guru')->where('mapel_guru', $id)->delete();
+        return redirect()->view('mapel_guru.index');
     }
 }

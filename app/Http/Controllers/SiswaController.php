@@ -75,7 +75,8 @@ class Siswa extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = DB::table('siswa')->where('id_siswa', $id)->first();
+        return view('siswa.edit', compact('data'));
     }
 
     /**
@@ -111,8 +112,8 @@ class Siswa extends Controller
             'tahun_keluar' => $request->tahun_keluar,
         ];
 
-        DB::table('siswa')->where('id_siswa', $id)->update($data);
-        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui.');
+        DB::table('siswa')->where('siswa', $id)->update($data);
+        return redirect()->view('siswa.index');
     }
 
     /**
@@ -120,6 +121,7 @@ class Siswa extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('siswa')->where('siswa', $id)->delete();
+        return redirect()->view('siswa.index');
     }
 }
